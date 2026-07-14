@@ -28,7 +28,11 @@ export default function Team() {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
             <motion.div variants={fadeIn} initial="initial" whileInView="whileInView" className="aspect-[3/4] bg-light-grey relative overflow-hidden group">
-              {/* Image Placeholder */}
+              <img 
+                src="/Abhishek Jain.webp" 
+                alt="Abhishek Jain" 
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              />
               <div className="absolute inset-0 bg-charcoal-800 opacity-10 group-hover:opacity-0 transition-opacity duration-500" />
             </motion.div>
             
