@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the platform",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 255 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["admin", "investor", "founder", "user"] },
+        "status": { "type": "string", "enum": ["pending", "verified", "rejected"] },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["email", "role", "status", "createdAt"]
+    },
+    "Deal": {
+      "title": "Deal",
+      "description": "A private market opportunity",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string", "maxLength": 100 },
+        "logoUrl": { "type": "string", "maxLength": 500 },
+        "sector": { "type": "string", "maxLength": 100 },
+        "region": { "type": "string", "maxLength": 100 },
+        "stage": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "enum": ["live", "pipeline", "closed"] },
+        "shortDescription": { "type": "string", "maxLength": 1000 },
+        "about": { "type": "string", "maxLength": 5000 },
+        "locked": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["companyName", "sector", "region", "status", "createdAt"]
+    },
+    "PortfolioCompany": {
+      "title": "Portfolio Company",
+      "description": "A company in the portfolio or network",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "logoUrl": { "type": "string", "maxLength": 500 },
+        "sector": { "type": "string", "maxLength": 100 },
+        "region": { "type": "string", "maxLength": 100 },
+        "stage": { "type": "string", "maxLength": 100 },
+        "relationshipType": { "type": "string", "enum": ["portfolio", "opportunity", "network", "past"] },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "sector", "relationshipType", "createdAt"]
+    },
+    "DealAccessRequest": {
+      "title": "Deal Access Request",
+      "description": "A request to access a secure data room",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 100 },
+        "dealId": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "ndaSigned": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["userId", "dealId", "status", "createdAt"]
+    },
+    "Submission": {
+      "title": "Submission",
+      "description": "A form submission (buy, sell, founder, etc.)",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 100 },
+        "type": { "type": "string", "enum": ["buy", "sell", "founder", "company_request"] },
+        "data": { "type": "string", "maxLength": 5000 },
+        "status": { "type": "string", "enum": ["new", "reviewed", "archived"] },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["type", "data", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and RBAC roles"
+    },
+    "/deals/{dealId}": {
+      "schema": "Deal",
+      "description": "Live and pipeline deals"
+    },
+    "/portfolio/{companyId}": {
+      "schema": "PortfolioCompany",
+      "description": "Portfolio and network companies"
+    },
+    "/accessRequests/{requestId}": {
+      "schema": "DealAccessRequest",
+      "description": "Requests to access data rooms"
+    },
+    "/submissions/{submissionId}": {
+      "schema": "Submission",
+      "description": "All inbound form submissions"
+    }
+  }
+}

@@ -1,299 +1,494 @@
-import { motion } from 'motion/react';
-import { ArrowRight, Globe, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Link } from "react-router-dom";
+import { FAQ } from "../components/FAQ";
+import { FAQStructuredData } from "../components/FAQStructuredData";
+import { Section } from "../components/ui/Section";
+import { InteractiveBox } from "../components/ui/InteractiveBox";
+import { InteractiveBoxGroup } from "../components/ui/InteractiveBoxGroup";
+import { Button } from "../components/ui/Button";
+import {
+  ArrowRight,
+  ChevronRight,
+  Activity,
+  Globe,
+  Handshake,
+  Link as LinkIcon,
+  Target,
+  Search,
+  BarChart3,
+  ShieldCheck,
+} from "lucide-react";
 
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
-};
+const homeFaqs = [
+  {
+    question: "What does Decipher Investments do?",
+    answer:
+      "Decipher works with startups, growth companies and investors across capital, private markets and strategic growth. We help companies access fundraising, markets and strategic relationships, while helping investors source and execute differentiated private-market opportunities.",
+  },
+  {
+    question: "Who does Decipher work with?",
+    answer:
+      "Decipher works with startups, growth-stage companies, founders, family offices, venture capital firms, private equity investors, corporate venture funds, strategic investors and other participants in private markets.",
+  },
+  {
+    question: "How does Decipher help startups and growth companies?",
+    answer:
+      "Decipher supports companies across strategic fundraising, international expansion, GTM strategy, strategic partnerships, corporate development, channel development, reseller networks, systems integration partnerships and enterprise market access.",
+  },
+  {
+    question: "How does Decipher help investors?",
+    answer:
+      "Decipher helps investors access and evaluate opportunities across primary growth-stage investments, secondary transactions, pre-IPO opportunities, shareholder liquidity, co-investment and deal syndication. We can also support opportunity scouting, sourcing and transaction coordination.",
+  },
+  {
+    question:
+      "What types of private-market opportunities does Decipher work with?",
+    answer:
+      "Decipher works across growth-stage primary transactions, secondary opportunities, pre-IPO opportunities, shareholder liquidity transactions, co-investment and syndicated private-market opportunities.",
+  },
+  {
+    question: "Does Decipher work internationally?",
+    answer:
+      "Yes. Decipher’s model is designed to support companies and investors across markets, including international expansion, cross-border relationships, investor access, enterprise partnerships and private-market opportunities.",
+  },
+  {
+    question: "How can I work with Decipher?",
+    answer:
+      "Founders and companies can join through the founder pathway, while investors can join the investor network. Decipher then evaluates the relevant capital, growth or investment objectives before exploring potential opportunities.",
+  },
+];
 
-const stagger = {
-  initial: { opacity: 0 },
-  whileInView: { opacity: 1 },
-  viewport: { once: true },
-  transition: { staggerChildren: 0.1 }
-};
+export function Home() {
+  const words = ["Capital.", "Access.", "Growth."];
+  const [index, setIndex] = useState(0);
 
-export default function Home() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="bg-white selection:bg-decipher-yellow selection:text-charcoal-900 pb-20">
-      
-      {/* HERO SECTION */}
-      <section className="relative min-h-[95vh] flex items-center pt-24 pb-12 overflow-hidden bg-charcoal-900 text-white">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_20%,transparent_100%)] opacity-40" />
+    <div className="flex flex-col min-h-screen bg-white">
+      {/* SECTION 1: HERO */}
+      <section className="relative pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden bg-white">
+        {/* Subtle geometric framing */}
+        <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center opacity-5">
+          <div className="w-full max-w-[1400px] h-[80vh] border-[0.5px] border-navy rounded-sm hidden md:block" />
+          <div className="absolute left-[10%] top-0 bottom-0 w-[0.5px] bg-navy hidden lg:block" />
+          <div className="absolute right-[10%] top-0 bottom-0 w-[0.5px] bg-navy hidden lg:block" />
         </div>
-        
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10 w-full">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-end">
-            <motion.div 
-              className="lg:col-span-8"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center text-center">
+          <h1 className="text-5xl md:text-7xl lg:text-[7rem] leading-[1.1] tracking-tight font-display font-medium text-navy max-w-5xl mb-8 flex flex-col items-center gap-y-2 md:gap-y-4">
+            <span>Deciphering</span>
+            <span className="text-yellow relative inline-flex justify-center">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {words[index]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-muted max-w-2xl mx-auto mb-16 leading-relaxed font-normal">
+            Connecting startups and growth companies with capital, markets and
+            strategic relationships, while helping investors access and execute
+            differentiated private-market opportunities.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full">
+            <Button
+              variant="primary"
+              size="lg"
+              to="/contact?type=investor"
+              className="w-full sm:w-auto"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.05] tracking-tighter font-display mb-8">
-                Institutional <br />
-                <span className="text-decipher-yellow">Capital.</span> <br />
-                Global Access.
-              </h1>
-              <p className="text-lg md:text-2xl text-off-white/80 max-w-2xl font-light tracking-wide mb-12">
-                Decipher Investments is a global private markets platform operating at the intersection of strategic capital and enterprise commercialization.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-6">
-                <Link to="/solutions" className="px-8 py-4 bg-decipher-yellow text-charcoal-900 rounded-full font-medium tracking-wide flex items-center justify-center gap-2 hover:bg-white transition-colors duration-300">
-                  Explore Capabilities
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link to="/contact" className="px-8 py-4 border border-white/20 rounded-full font-medium tracking-wide flex items-center justify-center hover:bg-white hover:text-charcoal-900 transition-colors duration-300">
-                  Partner With Us
-                </Link>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              className="lg:col-span-4 pb-4 lg:pb-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.4 }}
+              Join as a Investor
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              to="/contact?type=founder"
+              className="w-full sm:w-auto"
             >
-              <div className="border-l border-white/20 pl-6 lg:pl-8 space-y-8">
-                <div>
-                  <h3 className="text-xs font-bold tracking-widest uppercase text-white/50 mb-2">Cross-Border Conviction</h3>
-                  <p className="text-lg text-white font-medium">Bridging the gap between frontier technology and enterprise adoption.</p>
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold tracking-widest uppercase text-white/50 mb-2">Private Markets</h3>
-                  <p className="text-lg text-white font-medium">Curating access to highly sought-after, off-market opportunities.</p>
-                </div>
-              </div>
-            </motion.div>
+              Join as an Founder
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* THE GLOBAL SHIFT / WHY DECIPHER EXISTS */}
-      <section className="py-16 lg:py-32 bg-off-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-            <motion.div variants={fadeIn} initial="initial" whileInView="whileInView">
-              <h2 className="text-sm font-bold tracking-widest uppercase text-charcoal-700 mb-6">The Global Shift</h2>
-              <h3 className="text-3xl md:text-5xl font-display tracking-tight leading-tight text-charcoal-900 mb-8">
-                Value creation has moved <span className="italic font-serif">decisively</span> to the private markets.
-              </h3>
-              <p className="text-lg md:text-xl text-charcoal-800/70 font-light leading-relaxed mb-6">
-                As companies stay private longer, the most significant value inflection points occur before public listing. Simultaneously, breakthrough technologies require enterprise distribution to realize their potential.
-              </p>
-              <p className="text-lg md:text-xl text-charcoal-800/70 font-light leading-relaxed">
-                Decipher exists to navigate this complex ecosystem, providing institutional investors and founders with a definitive advantage.
-              </p>
-            </motion.div>
-            
-            <motion.div variants={fadeIn} initial="initial" whileInView="whileInView" className="bg-white p-10 lg:p-12 shadow-sm border border-light-grey rounded-2xl">
-              <h2 className="text-sm font-bold tracking-widest uppercase text-charcoal-700 mb-8">Why Decipher Exists</h2>
-              <ul className="space-y-8">
-                <li className="flex gap-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-decipher-yellow mt-2.5 shrink-0" />
-                  <div>
-                    <h4 className="text-xl font-display font-medium text-charcoal-900 mb-2">Information Asymmetry</h4>
-                    <p className="text-charcoal-800/70">The best opportunities remain highly concentrated. We open access through deep, curated networks.</p>
-                  </div>
-                </li>
-                <li className="flex gap-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-decipher-yellow mt-2.5 shrink-0" />
-                  <div>
-                    <h4 className="text-xl font-display font-medium text-charcoal-900 mb-2">Execution Gap</h4>
-                    <p className="text-charcoal-800/70">Capital alone is a commodity. Strategic commercialization and enterprise introductions are the true differentiators.</p>
-                  </div>
-                </li>
-                <li className="flex gap-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-decipher-yellow mt-2.5 shrink-0" />
-                  <div>
-                    <h4 className="text-xl font-display font-medium text-charcoal-900 mb-2">Global Fragmentation</h4>
-                    <p className="text-charcoal-800/70">Innovation is borderless, but capital often remains local. We connect major ecosystems seamlessly.</p>
-                  </div>
-                </li>
-              </ul>
-            </motion.div>
-          </div>
+      {/* SELECTED OPPORTUNITIES MARQUEE */}
+      <section className="py-10 bg-white border-y border-slate-200 overflow-hidden flex flex-col gap-6">
+        <div className="container mx-auto px-6 md:px-12 flex justify-between items-end">
+          <h3 className="text-xs font-bold tracking-widest uppercase text-slate-400">
+            Selected Opportunities
+          </h3>
         </div>
-      </section>
+        <div className="relative flex overflow-x-hidden group">
+          <div className="animate-marquee flex items-center whitespace-nowrap">
+            {/* Main content */}
+            <div className="flex shrink-0 items-center gap-12 px-6">
+              {/* Asia */}
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                Asia
+              </span>
+              <img
+                src="/assets/brands/National_Stock_Exchange_of_India_(NSE)_logo.svg"
+                alt="NSE"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/Swiggy_Logo.svg"
+                alt="Swiggy"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/shiprocket.svg"
+                alt="Shiprocket"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/pantherun.png"
+                alt="Pantherun"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/Oncare.png"
+                alt="Oncare Asia"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/agnikul.webp"
+                alt="Agnikul"
+                className="h-8 w-auto object-contain"
+              />
 
-      {/* ONE PLATFORM THREE CAPABILITIES */}
-      <section className="py-16 lg:py-32 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <motion.div variants={fadeIn} initial="initial" whileInView="whileInView" className="mb-16 md:mb-24">
-            <h2 className="text-sm font-bold tracking-widest uppercase text-charcoal-700 mb-6">One Platform</h2>
-            <h3 className="text-3xl md:text-5xl font-display tracking-tight text-charcoal-900 max-w-3xl">
-              Three institutional capabilities, operating synergistically.
-            </h3>
-          </motion.div>
+              {/* Global */}
 
-          <motion.div variants={stagger} initial="initial" whileInView="whileInView" className="grid md:grid-cols-3 gap-x-8 gap-y-12">
-            {[
-              {
-                num: "01",
-                title: "Private Market Access",
-                desc: "Curated allocations in highly sought-after pre-IPO and growth-stage companies. We navigate complex cap tables to secure stakes for our LPs and family office network.",
-                link: "/solutions"
-              },
-              {
-                num: "02",
-                title: "Enterprise Commercialization",
-                desc: "We start from a named buyer problem. By leveraging our CXO network, we introduce breakthrough technologies to global enterprises, driving revenue and GTM.",
-                link: "/solutions"
-              },
-              {
-                num: "03",
-                title: "Strategic Deal Sourcing",
-                desc: "Acting as an extension of institutional capital, we identify and vet proprietary cross-border investments tailored to specific mandates and thematic conviction.",
-                link: "/solutions"
-              }
-            ].map((cap, i) => (
-              <motion.div key={i} variants={fadeIn} className="group relative flex flex-col h-full border-t border-charcoal-900/10 pt-8">
-                <span className="text-decipher-yellow font-display font-medium text-lg mb-6">{cap.num}</span>
-                <h4 className="text-2xl font-display font-medium text-charcoal-900 mb-4">{cap.title}</h4>
-                <p className="text-charcoal-800/70 leading-relaxed mb-8 flex-grow">{cap.desc}</p>
-                <Link to={cap.link} className="inline-flex items-center text-sm font-bold tracking-wide uppercase text-charcoal-900 group-hover:text-decipher-yellow transition-colors">
-                  Learn More <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* SECTOR CONVICTION */}
-      <section className="py-16 lg:py-32 bg-charcoal-900 text-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24">
-            <motion.div variants={fadeIn} initial="initial" whileInView="whileInView" className="max-w-2xl">
-              <h2 className="text-sm font-bold tracking-widest uppercase text-white/50 mb-6">Sector Conviction</h2>
-              <h3 className="text-3xl md:text-5xl font-display tracking-tight">
-                Investing in ecosystems shaping the future economy.
-              </h3>
-            </motion.div>
-            <motion.div variants={fadeIn} initial="initial" whileInView="whileInView" className="mt-8 md:mt-0">
-              <Link to="/sectors" className="px-6 py-3 border border-white/20 rounded-full font-medium tracking-wide hover:bg-white hover:text-charcoal-900 transition-colors">
-                View All Sectors
-              </Link>
-            </motion.div>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
-            {[
-              "Enterprise Software & AI",
-              "Cybersecurity & Deep Tech",
-              "Fintech & Embedded Finance",
-              "Healthcare & MedTech",
-              "Space & Frontier Tech",
-              "Industrial Technology",
-              "Climate Tech",
-              "Consumer Discretionary"
-            ].map((sector, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-charcoal-900 p-8 lg:p-10 hover:bg-charcoal-800 transition-colors group cursor-pointer"
-              >
-                <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-8 group-hover:bg-decipher-yellow/10 transition-colors">
-                  <Globe className="w-5 h-5 text-decipher-yellow" />
-                </div>
-                <h4 className="text-xl font-display font-medium leading-snug">{sector}</h4>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED OPPORTUNITIES TEASER */}
-      <section className="py-16 lg:py-32 bg-off-white border-t border-light-grey overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
-          <motion.div variants={fadeIn} initial="initial" whileInView="whileInView" className="max-w-3xl mx-auto">
-            <h2 className="text-sm font-bold tracking-widest uppercase text-charcoal-700 mb-6">Representative Access</h2>
-            <h3 className="text-2xl md:text-4xl font-display tracking-tight text-charcoal-900 mb-12">
-              Executed pipeline across global innovators.
-            </h3>
-            
-            <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 opacity-70 grayscale hover:grayscale-0 transition-all duration-700">
-              {["Anthropic", "SpaceX", "Databricks", "Stripe", "Epic Games"].map((name, idx) => (
-                <span key={idx} className="text-2xl md:text-3xl font-bold font-display tracking-widest uppercase text-charcoal-900">{name}</span>
-              ))}
+              <img
+                src="/assets/brands/anthropic.svg"
+                alt="Anthropic"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/spacex.svg"
+                alt="SpaceX"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/zipline.svg"
+                alt="Zipline"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/databricks.svg"
+                alt="Databricks"
+                className="h-8 w-auto object-contain"
+              />
+              <span className="text-xl font-display font-semibold text-slate-800">
+                Revolut
+              </span>
+              <img
+                src="/assets/brands/openai.svg"
+                alt="OpenAI"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/Canva_Logo.svg"
+                alt="Canva"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/ByteDance_logo_English.svg"
+                alt="ByteDance"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/andruil.svg"
+                alt="Anduril"
+                className="h-8 w-auto object-contain"
+              />
             </div>
-            <p className="mt-12 text-sm text-charcoal-800/50">Selected names illustrative of market access capability. Past performance does not guarantee future results.</p>
-            
-            <div className="mt-12">
-              <Link to="/opportunities" className="inline-flex items-center text-sm font-bold tracking-wide uppercase text-charcoal-900 hover:text-decipher-yellow transition-colors">
-                View Opportunities <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
+
+            {/* Duplicate for infinite effect */}
+            <div className="flex shrink-0 items-center gap-12 px-6">
+              {/* Asia */}
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                Asia
+              </span>
+              <img
+                src="/assets/brands/National_Stock_Exchange_of_India_(NSE)_logo.svg"
+                alt="NSE"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/Swiggy_Logo.svg"
+                alt="Swiggy"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/shiprocket.svg"
+                alt="Shiprocket"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/pantherun.png"
+                alt="Pantherun"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/Oncare.png"
+                alt="Oncare Asia"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/agnikul.webp"
+                alt="Agnikul"
+                className="h-8 w-auto object-contain"
+              />
+
+              {/* Global */}
+
+              <img
+                src="/assets/brands/anthropic.svg"
+                alt="Anthropic"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/spacex.svg"
+                alt="SpaceX"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/zipline.svg"
+                alt="Zipline"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/databricks.svg"
+                alt="Databricks"
+                className="h-8 w-auto object-contain"
+              />
+              <span className="text-xl font-display font-semibold text-slate-800">
+                Revolut
+              </span>
+              <img
+                src="/assets/brands/openai.svg"
+                alt="OpenAI"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/Canva_Logo.svg"
+                alt="Canva"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/ByteDance_logo_English.svg"
+                alt="ByteDance"
+                className="h-8 w-auto object-contain"
+              />
+              <img
+                src="/assets/brands/andruil.svg"
+                alt="Anduril"
+                className="h-8 w-auto object-contain"
+              />
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* INSIGHTS PREVIEW */}
-      <section className="py-16 lg:py-32 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-charcoal-900/10 pb-8">
-            <div>
-              <h2 className="text-sm font-bold tracking-widest uppercase text-charcoal-700 mb-4">Intelligence</h2>
-              <h3 className="text-2xl md:text-4xl font-display font-medium text-charcoal-900">Market Insights</h3>
-            </div>
-            <Link to="/insights" className="mt-6 md:mt-0 text-sm font-bold tracking-wide uppercase flex items-center text-charcoal-900 hover:text-decipher-yellow transition-colors">
-              Read All <ArrowRight className="w-4 h-4 ml-2" />
+      {/* SECTION 2: TWO WAYS WE CREATE VALUE */}
+      <Section bg="offwhite">
+        <div className="mb-16 md:mb-24">
+          <span className="text-sm font-semibold tracking-widest uppercase text-muted block mb-4">
+            TWO WAYS WE CREATE VALUE
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-navy mb-6 max-w-3xl">
+            Two Sides. One Ecosystem.
+          </h2>
+          <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
+            Decipher works with startups, growth companies and investors across
+            capital, private markets and strategic growth.
+          </p>
+        </div>
+
+        <InteractiveBoxGroup className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <InteractiveBox
+            title="For Investors"
+            subtitle="Discover. Access. Execute."
+            content="Access differentiated private-market opportunities with strategic support across sourcing, transactions and execution. We provide unique insights into primary growth-stage opportunities, secondary transactions, and pre-IPO liquidity events."
+            icon={<Target size={28} />}
+          />
+
+          <InteractiveBox
+            title="For Startups"
+            subtitle="Raise. Expand. Grow."
+            content="Access capital, new markets, strategic relationships and commercial growth opportunities. Our institutional approach helps you scale internationally, form strategic partnerships, and navigate complex corporate development."
+            icon={<Activity size={28} />}
+          />
+        </InteractiveBoxGroup>
+      </Section>
+
+      {/* SECTION 3: FOR INVESTORS */}
+      <Section bg="white">
+        <div className="flex flex-col md:flex-row gap-12 lg:gap-24">
+          <div className="md:w-1/3">
+            <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight text-navy mb-6">
+              Access Better Opportunities.
+            </h2>
+            <p className="text-lg text-muted leading-relaxed mb-8">
+              The most compelling private-market opportunities depend on access,
+              relationships and timing.
+            </p>
+            <Link
+              to="/investors"
+              className="group inline-flex items-center text-navy font-semibold hover:text-yellow transition-colors"
+            >
+              Explore Investor Capabilities{" "}
+              <ChevronRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12">
-            {[
-              {
-                tag: "Market Update",
-                title: "The Enterprise AI Imperative: Moving beyond pilot purgatory.",
-                desc: "Analyzing the shift in corporate buying patterns and how founders can accelerate commercialization in highly regulated environments."
-              },
-              {
-                tag: "Private Markets",
-                title: "Liquidity in a constrained environment.",
-                desc: "How secondary markets are evolving to provide essential structural relief for early-stage investors and employees."
-              },
-              {
-                tag: "Cross-Border",
-                title: "Connecting Silicon Valley with emerging capital hubs.",
-                desc: "The rising importance of family offices in the Middle East and Asia in funding deep tech innovation."
-              }
-            ].map((article, i) => (
-              <motion.div key={i} variants={fadeIn} initial="initial" whileInView="whileInView" className="group">
-                <span className="text-xs font-bold tracking-widest uppercase text-charcoal-900/50 mb-4 block">{article.tag}</span>
-                <h3 className="text-xl font-display font-medium text-charcoal-900 mb-4 group-hover:text-decipher-yellow transition-colors cursor-pointer">
-                  {article.title}
-                </h3>
-                <p className="text-charcoal-800/70 text-sm leading-relaxed">
-                  {article.desc}
-                </p>
-              </motion.div>
-            ))}
+          <InteractiveBoxGroup className="md:w-2/3 space-y-4">
+            <InteractiveBox
+              title="Source"
+              content="We identify off-market, high-quality opportunities specifically aligned with your investment mandate and risk profile, ensuring you see the deals that matter."
+              icon={<Search size={24} />}
+            />
+            <InteractiveBox
+              title="Access"
+              content="Unlock exclusive entry into primary rounds, secondary transactions, pre-IPO events, and co-investment structures that are typically closed to the broader market."
+              icon={<ShieldCheck size={24} />}
+            />
+            <InteractiveBox
+              title="Execute"
+              content="Comprehensive support throughout the transaction lifecycle, including diligence coordination, deal syndication, and seamless execution structuring."
+              icon={<BarChart3 size={24} />}
+            />
+          </InteractiveBoxGroup>
+        </div>
+      </Section>
+
+      {/* SECTION 4: FOR STARTUPS */}
+      <Section bg="offwhite">
+        <div className="mb-16 md:mb-24">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-navy mb-6 max-w-3xl">
+            Growth Beyond Fundraising.
+          </h2>
+          <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
+            Capital matters. So do markets, customers, partnerships and
+            distribution.
+          </p>
+        </div>
+
+        <InteractiveBoxGroup className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-12">
+          <InteractiveBox
+            title="Capital"
+            content="Strategic fundraising advisory and direct access to an institutional network of growth-stage investors, family offices, and strategic corporate funds."
+            icon={<Target size={24} />}
+          />
+          <InteractiveBox
+            title="Markets"
+            content="International expansion planning, market entry strategy, and localized GTM execution for companies scaling beyond their home borders."
+            icon={<Globe size={24} />}
+          />
+          <InteractiveBox
+            title="Partnerships"
+            content="Structuring and negotiating high-value strategic alliances, joint ventures, and corporate development initiatives to accelerate growth."
+            icon={<Handshake size={24} />}
+          />
+          <InteractiveBox
+            title="Channels"
+            content="Developing enterprise market access, establishing reseller networks, and building systems integration partnerships for scalable distribution."
+            icon={<LinkIcon size={24} />}
+          />
+        </InteractiveBoxGroup>
+
+        <Link
+          to="/startups"
+          className="group inline-flex items-center text-navy font-semibold hover:text-yellow transition-colors"
+        >
+          Explore Startup Capabilities{" "}
+          <ChevronRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </Section>
+
+      {/* SECTION 5: WHY DECIPHER */}
+      <Section bg="white">
+        <div className="text-center mb-16 md:mb-24">
+          <span className="text-sm font-semibold tracking-widest uppercase text-muted block mb-4">
+            WHY DECIPHER
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-navy max-w-3xl mx-auto">
+            From Opportunity to Execution.
+          </h2>
+        </div>
+
+        <InteractiveBoxGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <InteractiveBox
+            title="Curated Opportunities"
+            content="We prioritize quality and strict relevance over sheer volume, ensuring every connection is highly strategic."
+          />
+          <InteractiveBox
+            title="Strategic Access"
+            content="Deep, trusted relationships across ambitious founders, institutional investors, and global enterprises."
+          />
+          <InteractiveBox
+            title="Execution Support"
+            content="We remain engaged beyond introductions, actively driving the transaction or growth process to completion."
+          />
+          <InteractiveBox
+            title="Long-Term Value"
+            content="Building enduring commercial structures around the right capital and relationships, not just chasing the immediate deal."
+          />
+        </InteractiveBoxGroup>
+      </Section>
+
+      <FAQ items={homeFaqs} bg="offwhite" />
+      <FAQStructuredData items={homeFaqs} />
+
+      {/* SECTION 6: FINAL CTA */}
+      <Section bg="navy">
+        <div className="text-center max-w-4xl mx-auto">
+          <h2 className="text-5xl md:text-7xl lg:text-[7rem] font-display font-medium tracking-tight mb-8">
+            Capital. Opportunity. <span className="text-yellow">Growth.</span>
+          </h2>
+
+          <p className="text-xl md:text-2xl text-white/70 mb-16 leading-relaxed">
+            Whether you’re building the next growth company or looking for
+            differentiated private-market opportunities, Decipher helps create
+            the right pathway forward.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Button
+              variant="primary"
+              size="lg"
+              to="/contact?type=founder"
+              className="w-full sm:w-auto"
+            >
+              Join as a Founder
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              to="/contact?type=investor"
+              className="w-full sm:w-auto text-white border-white/20 hover:bg-white/10 hover:text-black hover:border-white"
+            >
+              Join as an Investor
+            </Button>
           </div>
         </div>
-      </section>
-      
-      {/* FINAL CTA */}
-      <section className="py-16 md:py-24 bg-charcoal-900 text-center">
-        <div className="max-w-3xl mx-auto px-6">
-          <motion.div variants={fadeIn} initial="initial" whileInView="whileInView">
-            <h2 className="text-3xl md:text-5xl font-display tracking-tight text-white mb-8">Ready to navigate the private markets?</h2>
-            <Link to="/contact" className="inline-flex px-8 py-4 bg-decipher-yellow text-charcoal-900 rounded-full font-medium tracking-wide items-center justify-center gap-2 hover:bg-white transition-colors duration-300">
-              Get in Touch
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
+      </Section>
     </div>
   );
 }

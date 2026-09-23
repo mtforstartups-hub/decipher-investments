@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Validation functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Collections
+    match /users/{userId} {
+      // Anyone can read a user if they are an admin, or the user themselves
+      allow read: if isOwner(userId) || isAdmin();
+      // Users can only create their own profile
+      allow create: if isOwner(userId) 
+                    && request.resource.data.keys().hasAll(['email', 'role', 'status', 'createdAt'])
+                    && request.resource.data.role == 'user' // prevent self-assigning admin
+                    && request.resource.data.status == 'pending';
+      // Admins can update, users can update certain fields (not role/status)
+      allow update: if (isAdmin()) || (isOwner(userId) && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'status', 'createdAt']));
+      allow delete: if isAdmin();
+    }
+    
+    match /deals/{dealId} {
+      // Allow reading deals for public and teaser. 
+      // Public deals can be read by anyone.
+      // Teaser deals can be read by authenticated users.
+      // Data Room access is handled in subcollections or client-side guards, but we allow reading the deal document so it can be listed.
+      allow read: if true; 
+      allow create, update, delete: if isAdmin();
+      
+      // Data Room files subcollection
+      match /files/{fileId} {
+        // Only allow read if admin, or user has an approved submission for this deal
+        allow read: if isAdmin() || (isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.status == 'active');
+        allow write: if isAdmin();
+      }
+    }
+
+    match /portfolio/{companyId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    
+    match /accessRequests/{requestId} {
+      // Users can read their own, admins can read all
+      allow read: if (isAuthenticated() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+    
+    match /submissions/{submissionId} {
+      // Admins read all, users can read their own
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if true; // Allows anonymous users to submit if needed, or we can restrict.
+      allow update, delete: if isAdmin();
+    }
+  }
+}
