@@ -19,7 +19,7 @@
 
   @keyframes marquee {
     0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+    100% { transform: translateX(-100%); }
   }
 }
 
@@ -27,6 +27,7 @@
   display: flex;
   width: max-content;
   animation: marquee 35s linear infinite;
+  will-change: transform;
 }
 
 .group:hover .animate-marquee {

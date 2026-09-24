@@ -59,6 +59,84 @@ const homeFaqs = [
   },
 ];
 
+const marqueeItems = [
+  { type: "label", content: "Asia" },
+  {
+    type: "image",
+    src: "/assets/brands/National_Stock_Exchange_of_India_(NSE)_logo.svg",
+    alt: "NSE",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/Swiggy_Logo.svg",
+    alt: "Swiggy",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/shiprocket.svg",
+    alt: "Shiprocket",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/pantherun.png",
+    alt: "Pantherun",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/Oncare.png",
+    alt: "Oncare Asia",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/agnikul.webp",
+    alt: "Agnikul",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/anthropic.svg",
+    alt: "Anthropic",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/spacex.svg",
+    alt: "SpaceX",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/zipline.svg",
+    alt: "Zipline",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/databricks.svg",
+    alt: "Databricks",
+  },
+  {
+    type: "text",
+    content: "Revolut",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/openai.svg",
+    alt: "OpenAI",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/Canva_Logo.svg",
+    alt: "Canva",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/ByteDance_logo_English.svg",
+    alt: "ByteDance",
+  },
+  {
+    type: "image",
+    src: "/assets/brands/andruil.svg",
+    alt: "Anduril",
+  },
+];
+
 export function Home() {
   const words = ["Capital.", "Access.", "Growth."];
   const [index, setIndex] = useState(0);
@@ -112,7 +190,7 @@ export function Home() {
               to="/contact?type=investor"
               className="w-full sm:w-auto"
             >
-              Join as a Investor
+              Join as an Investor
             </Button>
             <Button
               variant="outline"
@@ -120,7 +198,7 @@ export function Home() {
               to="/contact?type=founder"
               className="w-full sm:w-auto"
             >
-              Join as an Founder
+              Join as a Founder
             </Button>
           </div>
         </div>
@@ -134,175 +212,51 @@ export function Home() {
           </h3>
         </div>
         <div className="relative flex overflow-x-hidden group">
-          <div className="animate-marquee flex items-center whitespace-nowrap">
-            {/* Main content */}
-            <div className="flex shrink-0 items-center gap-12 px-6">
-              {/* Asia */}
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-                Asia
-              </span>
-              <img
-                src="/assets/brands/National_Stock_Exchange_of_India_(NSE)_logo.svg"
-                alt="NSE"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/Swiggy_Logo.svg"
-                alt="Swiggy"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/shiprocket.svg"
-                alt="Shiprocket"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/pantherun.png"
-                alt="Pantherun"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/Oncare.png"
-                alt="Oncare Asia"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/agnikul.webp"
-                alt="Agnikul"
-                className="h-8 w-auto object-contain"
-              />
+          {/* Subtle gradient fades on edges */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-28 bg-gradient-to-l from-white to-transparent z-10" />
 
-              {/* Global */}
-
-              <img
-                src="/assets/brands/anthropic.svg"
-                alt="Anthropic"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/spacex.svg"
-                alt="SpaceX"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/zipline.svg"
-                alt="Zipline"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/databricks.svg"
-                alt="Databricks"
-                className="h-8 w-auto object-contain"
-              />
-              <span className="text-xl font-display font-semibold text-slate-800">
-                Revolut
-              </span>
-              <img
-                src="/assets/brands/openai.svg"
-                alt="OpenAI"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/Canva_Logo.svg"
-                alt="Canva"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/ByteDance_logo_English.svg"
-                alt="ByteDance"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/andruil.svg"
-                alt="Anduril"
-                className="h-8 w-auto object-contain"
-              />
+          {/* Seamless rolling tracks */}
+          {[0, 1, 2, 3].map((trackIndex) => (
+            <div
+              key={trackIndex}
+              className="flex shrink-0 items-center gap-12 pr-12 animate-marquee whitespace-nowrap"
+              aria-hidden={trackIndex > 0 ? "true" : undefined}
+            >
+              {marqueeItems.map((item, i) => {
+                if (item.type === "label") {
+                  return (
+                    <span
+                      key={i}
+                      className="text-xs font-semibold text-slate-400 uppercase tracking-widest select-none"
+                    >
+                      {item.content}
+                    </span>
+                  );
+                }
+                if (item.type === "text") {
+                  return (
+                    <span
+                      key={i}
+                      className="text-xl font-display font-semibold text-slate-800 select-none"
+                    >
+                      {item.content}
+                    </span>
+                  );
+                }
+                return (
+                  <img
+                    key={i}
+                    src={item.src}
+                    alt={item.alt}
+                    loading="eager"
+                    draggable={false}
+                    className="h-8 w-auto object-contain select-none pointer-events-none"
+                  />
+                );
+              })}
             </div>
-
-            {/* Duplicate for infinite effect */}
-            <div className="flex shrink-0 items-center gap-12 px-6">
-              {/* Asia */}
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-                Asia
-              </span>
-              <img
-                src="/assets/brands/National_Stock_Exchange_of_India_(NSE)_logo.svg"
-                alt="NSE"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/Swiggy_Logo.svg"
-                alt="Swiggy"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/shiprocket.svg"
-                alt="Shiprocket"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/pantherun.png"
-                alt="Pantherun"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/Oncare.png"
-                alt="Oncare Asia"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/agnikul.webp"
-                alt="Agnikul"
-                className="h-8 w-auto object-contain"
-              />
-
-              {/* Global */}
-
-              <img
-                src="/assets/brands/anthropic.svg"
-                alt="Anthropic"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/spacex.svg"
-                alt="SpaceX"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/zipline.svg"
-                alt="Zipline"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/databricks.svg"
-                alt="Databricks"
-                className="h-8 w-auto object-contain"
-              />
-              <span className="text-xl font-display font-semibold text-slate-800">
-                Revolut
-              </span>
-              <img
-                src="/assets/brands/openai.svg"
-                alt="OpenAI"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/Canva_Logo.svg"
-                alt="Canva"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/ByteDance_logo_English.svg"
-                alt="ByteDance"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                src="/assets/brands/andruil.svg"
-                alt="Anduril"
-                className="h-8 w-auto object-contain"
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -473,18 +427,18 @@ export function Home() {
             <Button
               variant="primary"
               size="lg"
-              to="/contact?type=founder"
+              to="/contact?type=investor"
               className="w-full sm:w-auto"
             >
-              Join as a Founder
+              Join as an Investor
             </Button>
             <Button
               variant="outline"
               size="lg"
-              to="/contact?type=investor"
+              to="/contact?type=founder"
               className="w-full sm:w-auto text-white border-white/20 hover:bg-white/10 hover:text-black hover:border-white"
             >
-              Join as an Investor
+              Join as a Founder
             </Button>
           </div>
         </div>
