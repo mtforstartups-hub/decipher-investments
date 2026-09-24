@@ -171,14 +171,14 @@ export default function Footer() {
             reserved.
           </p>
           <div className="flex space-x-8">
-            <Link to="#" className="hover:text-white transition-colors">
+            <Link to="/privacy" className="hover:text-white transition-colors">
               Privacy
             </Link>
-            <Link to="#" className="hover:text-white transition-colors">
+            <Link to="/terms" className="hover:text-white transition-colors">
               Terms
             </Link>
-            <Link to="#" className="hover:text-white transition-colors">
-              LinkedIn
+            <Link to="/cookies" className="hover:text-white transition-colors">
+              Cookie Policy
             </Link>
           </div>
         </div>
