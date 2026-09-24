@@ -30,8 +30,9 @@ export function Footer() {
             <Link to="/startups" className="hover:text-navy transition-colors">For Startups</Link>
             <Link to="/about" className="hover:text-navy transition-colors">About</Link>
             <Link to="/contact" className="hover:text-navy transition-colors">Contact</Link>
-            <a href="#" className="hover:text-navy transition-colors">LinkedIn</a>
             <Link to="/privacy" className="hover:text-navy transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-navy transition-colors">Terms of Service</Link>
+            <Link to="/cookies" className="hover:text-navy transition-colors">Cookie Policy</Link>
           </nav>
           <p className="text-sm font-medium text-muted">© {new Date().getFullYear()} Decipher</p>
         </div>

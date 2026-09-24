@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { CookieConsent } from './CookieConsent';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
@@ -30,6 +31,7 @@ export function Layout() {
         </AnimatePresence>
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
