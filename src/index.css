@@ -1,25 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
 
-  --color-navy: #0B1535;
-  --color-yellow: #F4C430;
-  --color-offwhite: #F7F7F5;
+  --color-navy: #0b1535;
+  --color-yellow: #f4c430;
+  --color-offwhite: #f7f7f5;
   --color-charcoal: #151515;
-  --color-muted: #5F6B7A;
-  --color-border: #E5E7EB;
-  
+  --color-muted: #5f6b7a;
+  --color-border: #e5e7eb;
+
   --color-background: #ffffff;
   --color-foreground: #151515;
 
   --animate-marquee: marquee 35s linear infinite;
 
   @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
 }
 
@@ -32,6 +36,13 @@
 
 .group:hover .animate-marquee {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+    will-change: auto;
+  }
 }
 
 @layer base {
@@ -47,7 +58,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
@@ -75,18 +91,18 @@
 }
 
 .legal-prose h2 {
-  color: #0B1535;
+  color: #0b1535;
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #E5E7EB;
+  border-bottom: 1px solid #e5e7eb;
   scroll-margin-top: 8.5rem;
 }
 
 .legal-prose h3 {
-  color: #0B1535;
+  color: #0b1535;
   font-size: 1.2rem;
   font-weight: 600;
   margin-top: 1.75rem;
@@ -96,7 +112,7 @@
 
 .legal-prose p {
   margin-bottom: 1.25rem;
-  color: #4B5563;
+  color: #4b5563;
 }
 
 .legal-prose ul {
@@ -115,11 +131,11 @@
 
 .legal-prose li {
   margin-bottom: 0.5rem;
-  color: #4B5563;
+  color: #4b5563;
 }
 
 .legal-prose a {
-  color: #0B1535;
+  color: #0b1535;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -127,11 +143,11 @@
 }
 
 .legal-prose a:hover {
-  color: #D97706;
+  color: #d97706;
 }
 
 .legal-prose strong {
-  color: #0B1535;
+  color: #0b1535;
   font-weight: 600;
 }
 
@@ -143,15 +159,15 @@
   font-size: 0.875rem;
 }
 
-.legal-prose th, .legal-prose td {
-  border: 1px solid #E5E7EB;
+.legal-prose th,
+.legal-prose td {
+  border: 1px solid #e5e7eb;
   padding: 0.75rem 1rem;
   text-align: left;
 }
 
 .legal-prose th {
-  background-color: #F7F7F5;
-  color: #0B1535;
+  background-color: #f7f7f5;
+  color: #0b1535;
   font-weight: 700;
 }
-
