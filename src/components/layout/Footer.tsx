@@ -170,7 +170,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Decipher Investments. All rights
             reserved.
           </p>
-          <div className="flex space-x-8">
+          <div className="flex flex-wrap gap-x-8 gap-y-2">
             <Link to="/privacy" className="hover:text-white transition-colors">
               Privacy
             </Link>

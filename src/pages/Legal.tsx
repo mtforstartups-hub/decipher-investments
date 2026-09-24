@@ -14,9 +14,11 @@ import {
   ChevronDown,
   ChevronUp,
   HelpCircle,
-  ExternalLink
+  ExternalLink,
+  Settings2
 } from 'lucide-react';
 import { legalDocuments, legalDocSlugs, getLegalDocument, LegalDocument } from '../data/legal';
+import { openCookiePreferences } from '../components/CookieConsent';
 
 interface LegalProps {
   defaultSlug?: string;
@@ -83,10 +85,23 @@ export function Legal({ defaultSlug }: LegalProps) {
             </div>
 
             {/* ACTION BUTTONS */}
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              {doc.id === 'cookies-tracking-policy' && (
+                <button
+                  type="button"
+                  onClick={openCookiePreferences}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-yellow text-navy hover:bg-yellow/90 text-sm font-bold transition-all shadow-md cursor-pointer"
+                  title="Manage Cookie Preferences"
+                >
+                  <Settings2 className="w-4 h-4" />
+                  Cookie Preferences
+                </button>
+              )}
+
               <button
+                type="button"
                 onClick={handleCopyLink}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all backdrop-blur-sm border border-white/15"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all backdrop-blur-sm border border-white/15 cursor-pointer"
                 title="Copy link to document"
               >
                 {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
@@ -94,8 +109,9 @@ export function Legal({ defaultSlug }: LegalProps) {
               </button>
 
               <button
+                type="button"
                 onClick={handlePrint}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all backdrop-blur-sm border border-white/15"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all backdrop-blur-sm border border-white/15 cursor-pointer"
                 title="Print document"
               >
                 <Printer className="w-4 h-4" />
