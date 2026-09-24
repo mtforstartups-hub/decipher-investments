@@ -275,21 +275,55 @@ export function Home() {
           </p>
         </div>
 
-        <InteractiveBoxGroup className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          <InteractiveBox
-            title="For Investors"
-            subtitle="Discover. Access. Execute."
-            content="Access differentiated private-market opportunities with strategic support across sourcing, transactions and execution. We provide unique insights into primary growth-stage opportunities, secondary transactions, and pre-IPO liquidity events."
-            icon={<Target size={28} />}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {/* For Investors Card */}
+          <div className="group w-full text-left p-8 md:p-10 border border-border hover:border-navy bg-white hover:shadow-sm transition-all duration-300 relative overflow-hidden">
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-display font-medium text-navy">
+                    For Investors
+                  </h3>
+                  <p className="text-muted text-sm mt-1 uppercase tracking-wider font-medium">
+                    Discover. Access. Execute.
+                  </p>
+                </div>
+                <div className="text-navy group-hover:text-yellow group-hover:-translate-y-1 transition-all duration-300">
+                  <Target size={28} />
+                </div>
+              </div>
+              <p className="text-muted leading-relaxed mt-4 font-normal">
+                Access differentiated private-market opportunities with strategic support across sourcing, transactions and execution. We provide unique insights into primary growth-stage opportunities, secondary transactions, and pre-IPO liquidity events.
+              </p>
+            </div>
 
-          <InteractiveBox
-            title="For Startups"
-            subtitle="Raise. Expand. Grow."
-            content="Access capital, new markets, strategic relationships and commercial growth opportunities. Our institutional approach helps you scale internationally, form strategic partnerships, and navigate complex corporate development."
-            icon={<Activity size={28} />}
-          />
-        </InteractiveBoxGroup>
+            <div className="absolute top-0 left-0 w-full h-1 bg-yellow transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
+          </div>
+
+          {/* For Startups Card */}
+          <div className="group w-full text-left p-8 md:p-10 border border-border hover:border-navy bg-white hover:shadow-sm transition-all duration-300 relative overflow-hidden">
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-display font-medium text-navy">
+                    For Startups
+                  </h3>
+                  <p className="text-muted text-sm mt-1 uppercase tracking-wider font-medium">
+                    Raise. Expand. Grow.
+                  </p>
+                </div>
+                <div className="text-navy group-hover:text-yellow group-hover:-translate-y-1 transition-all duration-300">
+                  <Activity size={28} />
+                </div>
+              </div>
+              <p className="text-muted leading-relaxed mt-4 font-normal">
+                Access capital, new markets, strategic relationships and commercial growth opportunities. Our institutional approach helps you scale internationally, form strategic partnerships, and navigate complex corporate development.
+              </p>
+            </div>
+
+            <div className="absolute top-0 left-0 w-full h-1 bg-yellow transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
+          </div>
+        </div>
       </Section>
 
       {/* SECTION 3: FOR INVESTORS */}
