@@ -310,8 +310,8 @@ export function Home() {
 
       {/* SECTION 3: FOR INVESTORS */}
       <Section bg="white">
-        <div className="flex flex-col md:flex-row gap-12 lg:gap-24">
-          <div className="md:w-1/3">
+        <div className="flex flex-col md:flex-row items-start gap-12 lg:gap-24">
+          <div className="md:w-1/3 flex-shrink-0">
             <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight text-navy mb-6">
               Access Better Opportunities.
             </h2>
@@ -328,7 +328,7 @@ export function Home() {
             </Link>
           </div>
 
-          <InteractiveBoxGroup className="md:w-2/3 space-y-4">
+          <InteractiveBoxGroup className="w-full md:flex-1 min-w-0 space-y-4">
             <InteractiveBox
               title="Source"
               content="We identify off-market, high-quality opportunities specifically aligned with your investment mandate and risk profile, ensuring you see the deals that matter."
