@@ -60,7 +60,6 @@ const homeFaqs = [
 ];
 
 const marqueeItems = [
-  { type: "label", content: "Asia" },
   {
     type: "image",
     src: "/assets/brands/National_Stock_Exchange_of_India_(NSE)_logo.svg",
@@ -110,30 +109,6 @@ const marqueeItems = [
     type: "image",
     src: "/assets/brands/databricks.svg",
     alt: "Databricks",
-  },
-  {
-    type: "text",
-    content: "Revolut",
-  },
-  {
-    type: "image",
-    src: "/assets/brands/openai.svg",
-    alt: "OpenAI",
-  },
-  {
-    type: "image",
-    src: "/assets/brands/Canva_Logo.svg",
-    alt: "Canva",
-  },
-  {
-    type: "image",
-    src: "/assets/brands/ByteDance_logo_English.svg",
-    alt: "ByteDance",
-  },
-  {
-    type: "image",
-    src: "/assets/brands/andruil.svg",
-    alt: "Anduril",
   },
 ];
 
@@ -293,7 +268,11 @@ export function Home() {
                 </div>
               </div>
               <p className="text-muted leading-relaxed mt-4 font-normal">
-                Access differentiated private-market opportunities with strategic support across sourcing, transactions and execution. We provide unique insights into primary growth-stage opportunities, secondary transactions, and pre-IPO liquidity events.
+                Access differentiated private-market opportunities with
+                strategic support across sourcing, transactions and execution.
+                We provide unique insights into primary growth-stage
+                opportunities, secondary transactions, and pre-IPO liquidity
+                events.
               </p>
             </div>
 
@@ -317,7 +296,10 @@ export function Home() {
                 </div>
               </div>
               <p className="text-muted leading-relaxed mt-4 font-normal">
-                Access capital, new markets, strategic relationships and commercial growth opportunities. Our institutional approach helps you scale internationally, form strategic partnerships, and navigate complex corporate development.
+                Access capital, new markets, strategic relationships and
+                commercial growth opportunities. Our institutional approach
+                helps you scale internationally, form strategic partnerships,
+                and navigate complex corporate development.
               </p>
             </div>
 
